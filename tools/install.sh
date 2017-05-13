@@ -29,8 +29,8 @@ EOF
         fi
     fi
 
-    if [ ! -d $BACKPACK_HOME ]; then
-        mkdir -p $BACKPACK_HOME
+    if [ ! -d "$BACKPACK_HOME" ]; then
+        mkdir -p "$BACKPACK_HOME"
     fi
 
     if [ ! -e "$BACKPACK_HOME/backpackrc" ]; then

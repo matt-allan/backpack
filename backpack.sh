@@ -14,7 +14,7 @@ if [ -${#plugins[@]} -eq 0 ]; then
 fi
 
 # shellcheck source=lib/functions.sh
-source $BACKPACK/lib/functions.sh
+source "$BACKPACK/lib/functions.sh"
 
 bp_backup() {
     for plugin in "${plugins[@]}"; do
@@ -32,10 +32,10 @@ bp_help() {
     print_info 'Usage:'
     echo '  backpack {backup, bootstrap, provision, settle}'
     print_info 'Arguments:'
-    echo '  backup:                     Backup installed packages, settings, etc to your backpack home directory.'
-    echo '  provision (default):        Provision the machine.  Runs all plugins in the order they are listed in your backpackrc.'
-    echo '  settle:                     Replace an archive backpack installation with a git repo to allow updating.'
-    echo '  update:                     Update the backpack installation.'
+    echo '  backup          Backup installed packages, settings, etc to your backpack home directory.'
+    echo '  provision       Provision the machine.  Runs all plugins in the order they are listed in your backpackrc.'
+    echo '  settle          Replace an archive backpack installation with a git repo to allow updating.'
+    echo '  update          Update the backpack installation.'
 }
 
 bp_provision() {
@@ -51,23 +51,36 @@ bp_provision() {
 }
 
 bp_settle() {
-    if [ ! -d $BACKPACK/.git ]; then
-        bp_trash $BACKPACK
-        git clone git@github.com:yuloh/backpack.git $BACKPACK
+    if [ ! -d "$BACKPACK/.git" ]; then
+        bp_trash "$BACKPACK"
+        git clone git@github.com:yuloh/backpack.git "$BACKPACK"
     fi
 }
 
-case $1 in
+bp_update() {
+    cd "$BACKPACK" || exit
+    if git pull --rebase --stat origin master; then
+        print_success "Backpack has been updated to the latest version."
+    else
+        print_error "There was an error updating."
+    fi
+}
+
+
+case "$1" in
     backup)
         bp_backup
         ;;
-    -h|--help|help)
-        bp_help
-        ;;
-    provision|*)
+    provision)
         bp_provision
         ;;
     settle)
         bp_settle
+        ;;
+    update|upgrade)
+        bp_update
+        ;;
+    *)
+        bp_help
         ;;
 esac
