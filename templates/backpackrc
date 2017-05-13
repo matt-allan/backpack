@@ -1,0 +1,21 @@
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
+# Which plugins would you like to load? (plugins can be found in ~/.backpack/plugins/*).
+# Custom plugins can be added to ~/.config/backpack/plugins.
+# Example format: plugins=(dotfiles xcode apt brew ssh-keys)
+plugins=(
+    dotfiles
+    xcode
+    brew
+)
+
+# If you are using the dotfiles plugin, you can set the path to store your dotfiles in here.
+dotfiles_path=~/Dropbox/dotfiles
+
+# All of the apps you would like to sync dotfiles for (apps can be found in ~/.backpack/plugins/dotfiles/apps/*).
+# Custom apps can be added to ~/.config/backpack/plugins/dotfiles/apps.
+# Each app is just a list of files you want to keep synced.
+dotfiles=(
+    backpack
+)
