@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ ! -n "$dotfiles_path" ]; then
-    dotfiles_path=~/Dropbox/dotfiles
+    dotfiles_path=~"$BACKPACK_HOME/dotfiles"
 fi
 
 app_cfg_path=$BACKPACK/plugins/dotfiles/apps

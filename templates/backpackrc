@@ -1,3 +1,5 @@
+#!/bin/bash
+# shellcheck disable=SC2034
 # -*- mode: sh -*-
 # vi: set ft=sh :
 
@@ -11,11 +13,13 @@ plugins=(
 )
 
 # If you are using the dotfiles plugin, you can set the path to store your dotfiles in here.
-dotfiles_path=~/Dropbox/dotfiles
+dotfiles_path=~/.config/backpack/dotfiles
 
 # All of the apps you would like to sync dotfiles for (apps can be found in ~/.backpack/plugins/dotfiles/apps/*).
 # Custom apps can be added to ~/.config/backpack/plugins/dotfiles/apps.
 # Each app is just a list of files you want to keep synced.
+# **WARNING**: Some apps will sync sensitive information.
+# Make sure to review the app's cfg file before syncing somewhere public.
 dotfiles=(
     backpack
 )
