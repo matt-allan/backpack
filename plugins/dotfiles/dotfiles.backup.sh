@@ -15,16 +15,16 @@ fi
 
 for app in "${dotfiles[@]}"; do
     # get the list of files to sync
-    IFS=$'\n'
     if [ -f "$custom_app_cfg_path/$app.cfg" ]; then
-        files=$(<"$custom_app_cfg_path/$app.cfg")
+        cfg="$custom_app_cfg_path/$app.cfg"
     elif [ -f "$app_cfg_path/$app.cfg" ]; then
-        files=$(<"$app_cfg_path/$app.cfg")
+        cfg="$app_cfg_path/$app.cfg"
     else
-        files=()
+        cfg='/dev/null'
     fi
 
-    for file in "${files[@]}"; do
+    while read -u 3 -r file; do
+
         # If the file or directory exists and isn't a symlink
         if ( [ -f "$HOME/$file" ] || [ -d "$HOME/$file" ] ) &&
             [ ! -h "$HOME/$file" ]
@@ -41,6 +41,6 @@ for app in "${dotfiles[@]}"; do
             mv "$HOME/$file" "$dotfiles_path/$file"
             ln -s "$dotfiles_path/$file" "$HOME/$file"
         fi
-    done
+    done 3< "$cfg"
 done
 

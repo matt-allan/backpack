@@ -16,14 +16,14 @@ fi
 for app in "${dotfiles[@]}"; do
     # get the list of files to sync
     if [ -f "$custom_app_cfg_path/$app.cfg" ]; then
-        files=$(<"$custom_app_cfg_path/$app.cfg")
+        cfg="$custom_app_cfg_path/$app.cfg"
     elif [ -f "$app_cfg_path/$app.cfg" ]; then
-        files=$(<"$app_cfg_path/$app.cfg")
+        cfg="$app_cfg_path/$app.cfg"
     else
-        files=()
+        cfg='dev/null'
     fi
 
-    for file in "${files[@]}"; do
+    while read -u 3 -r file; do
         # If we have a file or directory backed up,
         # there isn't already a symlink for it,
         # and we aren't syncing an OSX file on linux
@@ -46,5 +46,5 @@ for app in "${dotfiles[@]}"; do
                 ln -s "$dotfiles_path/$file" "$HOME/$file"
             fi
         fi
-    done
+    done 3< "$cfg"
 done
