@@ -36,6 +36,7 @@ for app in "${dotfiles[@]}"; do
             fi
 
             print_info "$HOME/$file > $dotfiles_path/$file"
+            mkdir -p "$dotfiles_path/$file"
             mv "$HOME/$file" "$dotfiles_path/$file"
             ln -s "$dotfiles_path/$file" "$HOME/$file"
         fi
