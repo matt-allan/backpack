@@ -36,11 +36,13 @@ for app in "${dotfiles[@]}"; do
                if bp_confirm "Overwrite $file with the backup?"; then
                    bp_trash "$HOME/$file"
                    print_info "$dotfiles_path/$file > $HOME/$file"
+                   mkdir -p "$(dirname "$HOME/$file")"
                    ln -s "$dotfiles_path/$file" "$HOME/$file"
                 fi
             else
                 # othewise we can just link our backup to the destination path
                 print_info "$dotfiles_path/$file > $HOME/$file"
+                mkdir -p "$(dirname "$HOME/$file")"
                 ln -s "$dotfiles_path/$file" "$HOME/$file"
             fi
         fi

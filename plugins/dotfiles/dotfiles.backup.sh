@@ -15,6 +15,7 @@ fi
 
 for app in "${dotfiles[@]}"; do
     # get the list of files to sync
+    IFS=$'\n'
     if [ -f "$custom_app_cfg_path/$app.cfg" ]; then
         files=$(<"$custom_app_cfg_path/$app.cfg")
     elif [ -f "$app_cfg_path/$app.cfg" ]; then
@@ -36,7 +37,7 @@ for app in "${dotfiles[@]}"; do
             fi
 
             print_info "$HOME/$file > $dotfiles_path/$file"
-            mkdir -p "$dotfiles_path/$file"
+            mkdir -p "$(dirname "$dotfiles_path/$file")"
             mv "$HOME/$file" "$dotfiles_path/$file"
             ln -s "$dotfiles_path/$file" "$HOME/$file"
         fi
