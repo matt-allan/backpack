@@ -53,7 +53,7 @@ Just add any plugins you want to use to the list and you are good to go.
 
 #### Custom Plugins
 
-You can add your own plugins to `~/.config/backpack/plugins`.  Just add a directory named after the plugin and put a bash script in it named like `my-plugin.plugin.sh`.
+You can add your own plugins to `~/.config/backpack/plugins`.  Just add a directory named after the plugin and put a bash script in it named like `my-plugin.provision.sh`.
 
 ### Provisioning
 

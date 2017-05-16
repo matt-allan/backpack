@@ -42,10 +42,10 @@ bp_provision() {
     # Load plugins
     for plugin in "${plugins[@]}"; do
         # shellcheck source=/dev/null
-        if [ -f "$BACKPACK_HOME/plugins/$plugin/$plugin.plugin.sh" ]; then
-            source "$BACKPACK_HOME/plugins/$plugin/$plugin.plugin.sh"
-        elif [ -f "$BACKPACK/plugins/$plugin/$plugin.plugin.sh" ]; then
-            source "$BACKPACK/plugins/$plugin/$plugin.plugin.sh"
+        if [ -f "$BACKPACK_HOME/plugins/$plugin/$plugin.provision.sh" ]; then
+            source "$BACKPACK_HOME/plugins/$plugin/$plugin.provision.sh"
+        elif [ -f "$BACKPACK/plugins/$plugin/$plugin.provision.sh" ]; then
+            source "$BACKPACK/plugins/$plugin/$plugin.provision.sh"
         fi
     done
 }
@@ -54,6 +54,7 @@ bp_settle() {
     if [ ! -d "$BACKPACK/.git" ]; then
         bp_trash "$BACKPACK"
         git clone git@github.com:yuloh/backpack.git "$BACKPACK"
+        print_success "Backpack settled."
     fi
 }
 
