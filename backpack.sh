@@ -22,19 +22,24 @@ bp_backup() {
     done
 }
 
+bp_edit() {
+    $EDITOR "$BACKPACK_HOME/backpackrc"
+}
+
 # help
 bp_help() {
     print_info 'Usage:'
     echo '  backpack {backup, bootstrap, provision, settle}'
     print_info 'Arguments:'
     echo '  backup          Backup installed packages, settings, etc to your backpack home directory.'
+    # shellcheck disable=SC2016
+    echo '  edit            Open your backpackrc in $EDITOR'
     echo '  provision       Provision the machine.  Runs all plugins in the order they are listed in your backpackrc.'
     echo '  settle          Replace an archive backpack installation with a git repo to allow updating.'
     echo '  update          Update the backpack installation.'
 }
 
 bp_provision() {
-    # Load plugins
     for plugin in "${plugins[@]}"; do
         bp_load_plugin "$plugin" provision
     done
@@ -42,6 +47,7 @@ bp_provision() {
 
 bp_settle() {
     if [ ! -d "$BACKPACK/.git" ]; then
+        print_info "Settling..."
         bp_trash "$BACKPACK"
         git clone git@github.com:yuloh/backpack.git "$BACKPACK"
         print_success "Backpack settled."
@@ -61,6 +67,9 @@ bp_update() {
 case "$1" in
     backup)
         bp_backup
+        ;;
+    edit)
+        bp_edit
         ;;
     provision)
         bp_provision
