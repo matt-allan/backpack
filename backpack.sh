@@ -18,12 +18,7 @@ source "$BACKPACK/lib/functions.sh"
 
 bp_backup() {
     for plugin in "${plugins[@]}"; do
-        # shellcheck source=/dev/null
-        if [ -f "$BACKPACK_HOME/plugins/$plugin/$plugin.backup.sh" ]; then
-            source "$BACKPACK_HOME/plugins/$plugin/$plugin.backup.sh"
-        elif [ -f "$BACKPACK/plugins/$plugin/$plugin.backup.sh" ]; then
-            source "$BACKPACK/plugins/$plugin/$plugin.backup.sh"
-        fi
+        bp_load_plugin "$plugin" backup
     done
 }
 
@@ -41,12 +36,7 @@ bp_help() {
 bp_provision() {
     # Load plugins
     for plugin in "${plugins[@]}"; do
-        # shellcheck source=/dev/null
-        if [ -f "$BACKPACK_HOME/plugins/$plugin/$plugin.provision.sh" ]; then
-            source "$BACKPACK_HOME/plugins/$plugin/$plugin.provision.sh"
-        elif [ -f "$BACKPACK/plugins/$plugin/$plugin.provision.sh" ]; then
-            source "$BACKPACK/plugins/$plugin/$plugin.provision.sh"
-        fi
+        bp_load_plugin "$plugin" provision
     done
 }
 

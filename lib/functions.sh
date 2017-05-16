@@ -12,6 +12,17 @@ print_success() {
     printf "\e[0;32m  [✔] %s\e[0m\n" "$1"
 }
 
+bp_load_plugin() {
+    local plugin=$1
+    local action=$2
+    # shellcheck source=/dev/null
+    if [ -f "$BACKPACK_HOME/plugins/$plugin/$plugin.$action.sh" ]; then
+        source "$BACKPACK_HOME/plugins/$plugin/$plugin.$action.sh"
+    elif [ -f "$BACKPACK/plugins/$plugin/$plugin.$action.sh" ]; then
+        source "$BACKPACK/plugins/$plugin/$plugin.$action.sh"
+    fi
+}
+
 bp_installed() {
     type -t "$1" > /dev/null
 }
