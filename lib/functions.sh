@@ -27,6 +27,14 @@ bp_installed() {
     type -t "$1" > /dev/null
 }
 
+bp_is_osx() {
+    [[ $(uname) == 'Darwin' ]] && return
+}
+
+bp_is_linux() {
+    [[ $(uname) == 'Linux' ]] && return
+}
+
 bp_brew_tapped() {
     brew tap | grep -q "$1"
 }

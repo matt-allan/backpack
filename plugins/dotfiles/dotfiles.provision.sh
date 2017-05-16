@@ -29,7 +29,7 @@ for app in "${dotfiles[@]}"; do
         # and we aren't syncing an OSX file on linux
         if ( [ -f "$dotfiles_path/$file" ] || [ -d "$dotfiles_path/$file" ] ) &&
             [ ! "$dotfiles_path/$file" -ef "$HOME/$file" ] &&
-            ( [[ ! $(uname) == "Linux" ]]  || [[ ! $file == $HOME/Library* ]] )
+            ( bp_is_linux || [[ ! $file == $HOME/Library* ]] )
         then
             # If a file/dir/symlink exists, confirm before we replace it
             if [ -e "$HOME/$file" ] || [ -d "$HOME/$file" ]; then
